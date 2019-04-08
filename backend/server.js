@@ -2,6 +2,7 @@
 // Import express
 let express = require('express')
 let app = express();
+let jwt=require('jsonwebtoken')
 // Import Body parser
 let bodyParser = require('body-parser');
 // Configure bodyparser to handle post requests
@@ -9,10 +10,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
+//import express validator
 var expressValidator = require('express-validator')
+//calling express validator
 app.use(expressValidator());
-
 // Import Mongoose
 const mongoose = require('mongoose');
 const route = require('../backend/api-routes');

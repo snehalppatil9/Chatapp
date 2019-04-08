@@ -1,15 +1,18 @@
-var userModel = require('../models/userModel');
-
-exports.register = (req, callback) => {
-    userModel.register(req, (err, data) => {
-        if (err) {
-            return callback(err);
-        } else {
-            return callback(null, data);
+var userModel = require('../models/userModel')
+exports.registration=(data,callback)=>{
+    userModel.registration(data,(err,result)=>{
+        if(err)
+        {
+            console.log("service error");
+            callback(err);        
+        }
+        else
+        {
+            console.log("In service",result);
+            callback(null,result);
         }
     })
 }
-
 exports.login = (req, callback) => {
     userModel.login(req, (err, data) => {
         if (err) {
@@ -21,7 +24,7 @@ exports.login = (req, callback) => {
 }
 
 exports.forgotPassword = (req, callback) =>{
-    userModel.login(req, (err, data) =>{
+    userModel.forgotPassword(req, (err, data) =>{
         if(err){
             return callback(err);
         }else{

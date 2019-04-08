@@ -1,125 +1,97 @@
 // userModel.js
-
+const bcrypt = require('bcrypt');
+var saltRounds = 10;
 var mongoose = require('mongoose');
-var mongoSchema=mongoose.Schema;
+var mongoSchema = mongoose.Schema;
 // Setup schema
-var userSchema =mongoSchema({
+var userSchema = mongoSchema({
     name: {
         type: String,
-        required: [true,"Name is required"]
+        required: [true, "Name is required"]
     },
     email: {
         type: String,
-        required: [true,"Email is required"]
+        required: [true, "Email is required"]
     },
     password: {
         type: String,
-        required: [true,"Password is required"]
-     }
-    },
-    {
-        timestamps: true
-    // create_date: {
-    //     type: Date,
-    //     default: Date.now
-    // }
+        required: [true, "Password is required"]
+    }
 });
-var register = module.exports = mongoose.model('user', userSchema);
-
-module.exports.get = function (callback, limit) {
-    register.find(callback).limit(limit);
-    login.find(callback).limit(limit);
-    forgotPassword.find(callback).limit(limit);
-    resetPassword.find(callback).limit(limit);
+var user = mongoose.model('user', userSchema);
+function userModel() { }
+function hash(password) {
+    var hash = bcrypt.hashSync(password, saltRounds);
+    return hash;
 }
 
+userModel.prototype.registration = (body, callback) => {
+    user.find({
+        "email": body.email
+    }, (err, data) => {
+        if (err) {
+            console.log("Error in Registration");
+            callback("User Already Present")
+        }
+        else if (data.length > 0) {
+            console.log("Email already Exists.");
+            callback("Email already Exists")
+        }
+        else {
+            const newUser = new user({
+                "name": body.name,
+                "email": body.email,
+                "password": hash(body.password)
+            });
 
-
-// function userModel(){
-    
-// }
-// // Export Login model
-// var user =mongoose.model('user', userSchema);
-
-// userModel.prototype.register = (body, callback) => {
-//     const newUser = new user({
-//         "name": body.name,
-//         "email": body.email,
-//         "password": body.password
-//     });
-//     newUser.save((err, result) => {
-//         if (err) {
-//             console.log("error in model file", err);
-//             return callback(err);
-//         } else {
-//             console.log("Data saved successfully...!", result);
-//             return callback(null, result);
-//         }
-//     });
-// }
-
-// userModel.prototype.login = (body, callback) => {
-//     user.find({ "email": body.email }, (err, data) => {
-//         if (err) {
-//             return callback(err);
-//         } else if (data.length > 0) {
-//             compare(body.password, data[0].password, function (err, res) {
-//                 if (err) {
-//                     return callback(err);
-//                 } else if (res) {
-//                     console.log(data);
-//                     return callback(null, data);
-//                 } else {
-//                     return callback("Incorrect password").status(500);
-//                 }
-//             });
-//         } else {
-//             return callback("Invalid User ");
-//         }
-//     });
-// }
-
-// userModel.prototype.forgotPassword = (body, callback) => {
-//     user.find({ "email": body.email }, (err, data) => {
-//         if (err) {
-//             return callback(err);
-//         } else if (data) {
-//             console.log("Data in models==>", data[0]._id);
-//             return callback(null, data)
-//         }
-//         else {
-//             return callback("Invalid User ");
-//         }
-//     });
-// }
-
-// userModel.prototype.resetPassword = (body, callback) => {
-//     user.find({ 'email': body.email }, (err, data) => {
-//         if (err) {
-//             console.log("Error");
-//             return callback(err);
-//         } else if (data.length > 0) {
-//             response = { "error": true, "message": "Email already exists ", "errorCode": 404 };
-//             return callback(response);
-//         }
-//         else {
-//             const newUser = new user({
-//                 "name": body.name,
-//                 "email": body.email,
-//                 "password": body.password
-//             });
-//             newUser.save((err, result) => {
-//                 if (err) {
-//                     console.log("error in model file", err);
-//                     return callback(err);
-//                 } else {
-//                     console.log("Data saved successfully...!", result);
-//                     return callback(null, result);
-//                 }
-//             });
-//         }
-//     });
-
-// }
-
-// module.exports = new userModel();
+            newUser.save((err, result) => {
+                if (err) {
+                    console.log("Model not found");
+                    callback(err);
+                } else {
+                    console.log("Registered Successfully");
+                    callback(null, result)
+                }
+            })
+        }
+    });
+}
+userModel.prototype.login = (body, callback) => {
+    user.findOne(
+        {
+            "email": body.email
+        }, (err, data) => {
+            if (err) {
+                callback(err);
+            } else if (data != null) {
+                bcrypt.compare(body.password, data.password).then(function (res) {
+                    if (res) {
+                        callback(null);
+                    }
+                    else {
+                        console.log("Incorrect password");
+                    }
+                });
+            }
+        });
+}
+userModel.prototype.forgotPassword = (body, callback) => {
+    user.findOne(
+        {
+            "email": body.email
+        }, (err, data) => {
+            if (err) {
+                callback(err);
+            } else if (data != null) {
+                bcrypt.compare(body.password, data.password).then(function (res) {
+                    if (res) {
+                        callback(null);
+                    }
+                    else {
+                        console.log("Incorrect password");
+                    }
+                });
+            }
+        });
+}
+module.exports = new userModel();
