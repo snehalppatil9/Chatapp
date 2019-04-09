@@ -7,6 +7,7 @@ var mongoSchema = mongoose.Schema;
 var userSchema = mongoSchema({
     name: {
         type: String,
+        unique: true,
         required: [true, "Name is required"]
     },
     email: {
@@ -43,7 +44,6 @@ userModel.prototype.registration = (body, callback) => {
                 "email": body.email,
                 "password": hash(body.password)
             });
-
             newUser.save((err, result) => {
                 if (err) {
                     console.log("Model not found");
@@ -66,6 +66,7 @@ userModel.prototype.login = (body, callback) => {
             } else if (data != null) {
                 bcrypt.compare(body.password, data.password).then(function (res) {
                     if (res) {
+                        console.log("Login sucessfully.......");
                         callback(null);
                     }
                     else {
@@ -76,22 +77,45 @@ userModel.prototype.login = (body, callback) => {
         });
 }
 userModel.prototype.forgotPassword = (body, callback) => {
-    user.findOne(
-        {
-            "email": body.email
-        }, (err, data) => {
-            if (err) {
-                callback(err);
-            } else if (data != null) {
-                bcrypt.compare(body.password, data.password).then(function (res) {
-                    if (res) {
-                        callback(null);
-                    }
-                    else {
-                        console.log("Incorrect password");
-                    }
-                });
-            }
-        });
+    user.findOne({ "email": body.email }, (err, data) => {
+        if (err) {
+            return callback(err);
+        } else if (data) {
+            return callback(null, data);
+        }
+        else {
+            return callback("Incorrect email");
+        }
+    });
 }
+userModel.prototype.resetPassword = (body, callback) => {
+    var pass = hash(body.password);
+    console.log(pass);
+    // var cpass=hash(body.c)
+    user.updateOne({ password: pass }, (err, result) => {
+        if (err) {
+           return callback(err);
+        } else {
+            // console.log("result", result)
+            const newUser = new user({
+                "name": body.name,
+                "email": body.email,
+                "password": hash(body.password)
+            });
+            newUser.save((err, result) => {
+                if (err) {
+                    console.log("Model not found");
+                    callback(err);
+                } else {
+                    console.log("Registered Successfully");
+                    callback(null, result)
+                }
+            })
+            console.log("Password Reseted Successfully....");
+
+            return callback(null, result);
+        }
+    })
+}
+
 module.exports = new userModel();

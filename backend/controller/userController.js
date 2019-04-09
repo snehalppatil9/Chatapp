@@ -1,76 +1,83 @@
 var userService = require('../services/userServices');
-var authentication=require('../authentication/authentication');
-//var jwt=require('jsonwebtoken');
-exports.registration=(req,res)=>{
-    var responseResult={};
-    userService.registration(req.body,(err,result)=>{
-        if(err)
-        {
-            responseResult.success=false;
-            responseResult.error=err;
+var jwt = require('jsonwebtoken')
+exports.registration = (req, res) => {
+    var responseResult = {};
+    userService.registration(req.body, (err, result) => {
+        if (err) {
+            responseResult.success = false;
+            responseResult.error = err;
             res.status(500).send(responseResult);
         }
-        else
-        {
-            responseResult.success=true;
-            responseResult.result=result;
-            responseResult.message="Registration Successfull"
+        else {
+            responseResult.success = true;
+            responseResult.result = result;
+            responseResult.message = "Registration Successfull"
             res.status(200).send(responseResult.message);
         }
     })
 }
-exports.login=(req,res)=>{
-    var responseResult={};
-    userService.login(req.body,(err,result)=>{
-        if(err)
-        {
-            responseResult.success=false;
-            responseResult.error=err;
+exports.login = (req, res) => {
+    var responseResult = {};
+    userService.login(req.body, (err, result) => {
+        if (err) {
+            responseResult.success = false;
+            responseResult.error = err;
             res.status(500).send(responseResult);
         }
-        else
-        {
-            responseResult.success=true;
-            responseResult.result=result;
+        else {
+            responseResult.success = true;
+            responseResult.result = result;
+            responseResult.message = "Login Sucessufully"
             res.status(200).send(responseResult);
         }
     })
 }
-exports.forgotPassword=(req,res)=>{
-    var responseResult={};
-    userService.forgotPassword(req.body,(err,result)=>{
-        if(err)
-        {
-            responseResult.success=false;
-            responseResult.error=err;
-            res.status(500).send(responseResult);
+exports.forgotPassword = (req, res) => {
+    var responseResult = {};
+    userService.forgotPassword(req.body, (err, data) => {
+        if (err) {
+            console.log(err)
+            responseResult.status = false;
+            responseResult.errors = err;
+            return res.status(400).send(responseResult);
+        } else {
+            responseResult.status = true;
+            responseResult.result = data;
+            var payload = {
+                email: req.body.email
+            }
+            //console.log("Payload", payload);
+            //console.log("hahahahhahahahahahahahahahahahahahahaha")
+            const options = { expiresIn: '2d'}
+            var token = jwt.sign((payload), 'secretKey' , options);
+           // console.log(token);
+            var url = `localhost:8080/resetPassword =>${token}`;
+            // console.log(url);
+            // console.log("Snehal")
+            res.status(200).send({
+               message:data,
+                "token":token,
+                "url": url
+                
+            });
+
         }
-        else
-        {
-            responseResult.success=true;
-            responseResult.result=result;
-            let token=authentication.auth();
-            console.log(token);
-            res.status(200).send(responseResult);
-        }
-    });
-    
-  
+    })
 }
-exports.resetPassword=(req,res)=>{
-    var responseResult={};
-    userService.resetPassword(req.body,(err,result)=>{
-        if(err)
-        {
-            responseResult.success=false;
-            responseResult.error=err;
-            res.status(500).send(responseResult);
-        }
-        else
-        {
-            responseResult.success=true;
-            responseResult.result=result;
-            res.status(200).send(responseResult);
+exports.resetPassword = (req, res) => {
+    // console.log("control",req);
+    var responseResult = {};
+    userService.resetPassword(req.body, (err, data) => {
+        if (err) {
+            // console.log("dgsdefdes");
+            responseResult.status = false;
+            responseResult.errors = err;
+            return res.status(400).send(responseResult);
+        } else {
+            responseResult.status = true;
+            responseResult.result = data;
+            responseResult.message="reset Passsword sucessfully."
+            return res.status(200).send(responseResult);
         }
     })
 }
