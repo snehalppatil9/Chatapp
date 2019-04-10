@@ -37,6 +37,7 @@ exports.resetPassword = (req, callback) => {
         if (err) {
             return callback(err);
         } else {
+            console.log("result in controler== ",result)
             return callback(null, result);
         }
     })

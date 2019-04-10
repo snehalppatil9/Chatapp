@@ -91,31 +91,30 @@ userModel.prototype.forgotPassword = (body, callback) => {
 userModel.prototype.resetPassword = (body, callback) => {
     var pass = hash(body.password);
     console.log(pass);
-    // var cpass=hash(body.c)
     user.updateOne({ password: pass }, (err, result) => {
         if (err) {
            return callback(err);
         } else {
             // console.log("result", result)
-            const newUser = new user({
-                "name": body.name,
-                "email": body.email,
-                "password": hash(body.password)
-            });
-            newUser.save((err, result) => {
-                if (err) {
-                    console.log("Model not found");
-                    callback(err);
-                } else {
-                    console.log("Registered Successfully");
-                    callback(null, result)
-                }
-            })
-            console.log("Password Reseted Successfully....");
+            // const newUser = new user({
+            //     "name": body.name,
+            //     "email": body.email,
+            //     "password": hash(body.password)
+            // });
+            // newUser.save((err, result) => {
+            //     if (err) {
+            //         console.log("Model not found");
+            //         callback(err);
+            //         } else {
+            //             console.log("Registered Successfully");
+            //             callback(null, result)
+            //         }
+            //     })
+            console.log("update password==",user.password)
+                console.log("Password Reseted Successfully....");
+            callback(null, result);
+            }
+        })
+    }
 
-            return callback(null, result);
-        }
-    })
-}
-
-module.exports = new userModel();
+    module.exports = new userModel();

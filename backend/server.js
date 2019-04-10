@@ -1,8 +1,9 @@
 // FileName: server.js
 // Import express
-let express = require('express')
-let app = express();
-let http=require('http');
+
+const express = require('express')
+const app = express();
+const http=require('http');
 // let jwt=require('jsonwebtoken')
 // let async=require('async');
 // let nodemailer=require('nodemailer');
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 var expressValidator = require('express-validator')
 //calling express validator
 app.use(expressValidator());
+var socketIO = require('socket.io');
 // Import Mongoose
 const mongoose = require('mongoose');
 const route = require('../backend/api-routes');
@@ -27,10 +29,20 @@ var port = process.env.PORT || 8080;
 var server = app.listen(port, function () {
   console.log("Running RestHub on port " + port);
 });
+const io = require('socket.io')(server);
+io.on('connection', function (socket) {
+  console.log("Connected socket!");
+    // socket emmits disconnect event which will be called whenever client disconnected.
+      socket.on('disconnect', function () {
+          console.log("Socket Disconnected!")
+      });
+  });
 //calling router
 app.use('/', route);
+app.use(express.static('../frontend'));
 //import database config
 const mdbConfig = require('./config/database.js');
+//app.use(express.static('../frontend'));
 //connection to database
 mongoose.connect(mdbConfig.url, {
   useNewUrlParser: true
@@ -40,18 +52,9 @@ mongoose.connect(mdbConfig.url, {
   console.log("Could not connect to the database....!");
   process.exit();
 });
-app.use(express.static('frontend'));
-app.use(express.static('../frontend'));
-var socketIO = require('socket.io');
-// const server = http.createServer(app);
-const io = require('socket.io')(server);
-io.on('connection', function (socket) {
-  console.log("Connected socket!");
-  //started listening events. socket.on waits for the event. whenever that event is triggered the callback
-  //function is called.
-      // socket emmits disconnect event which will be called whenever client disconnected.
-      socket.on('disconnect', function () {
-          console.log("Socket Disconnected!")
-      });
-  });
+
+
+
+
+
 

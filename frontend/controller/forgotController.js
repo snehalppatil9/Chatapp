@@ -1,10 +1,9 @@
-app.controller('controlLogin', function ($scope, serviceLogin) {
+app.controller('forgotController', function ($scope, forgotServices) {
 
-    $scope.login = function () {
+    $scope.forgotPassword = function () {
         var data = {
             'email': $scope.email,
-            'password': $scope.password
         }
-        serviceLogin.login(data, $scope);
+        forgotServices.forgotPassword(data, $scope);
     }
 });

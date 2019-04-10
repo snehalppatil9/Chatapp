@@ -1,10 +1,17 @@
-app.controller('controlLogin', function ($scope, serviceLogin) {
+app.controller('resetController', function ($scope, resetservices) {
 
-    $scope.login = function () {
-        var data = {
-            'email': $scope.email,
-            'password': $scope.password
+    // for registration form
+    $scope.resetPassword = function () {
+        var user = {
+            'password': $scope.password,
+            'confirmPassword': $scope.confirmPassword
         }
-        serviceLogin.login(data, $scope);
+
+        console.log("register calling", user);
+        if ($scope.password != $scope.confirmPassword) {
+            $scope.message = "password and confirm password not match.....please try again...";
+        } else {
+            resetservices.registerUser(user, $scope);
+        }
     }
 });

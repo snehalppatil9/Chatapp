@@ -1,10 +1,10 @@
-app.controller('loginController', function ($scope, serviceLogin) {
+app.controller('loginController', function ($scope, loginServices) {
 
     $scope.login = function () {
         var data = {
             'email': $scope.email,
             'password': $scope.password
         }
-        serviceLogin.login(data, $scope);
+        loginServices.login(data, $scope);
     }
 });

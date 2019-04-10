@@ -1,11 +1,10 @@
-
 var app = angular.module('chatApp',['ui.router','btford.socket-io']);
 app.config(function($stateProvider, $urlRouterProvider){
 
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: 'templates/loginPage.html',
-        controller: 'controlLogin'
+        controller: 'loginController'
 
     })
 
@@ -31,8 +30,8 @@ app.config(function($stateProvider, $urlRouterProvider){
 
     $urlRouterProvider.otherwise('login'); 
 });
-app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
-    return socketFactory({
-        ioSocket: io.connect('http://localhost:8080')  //connecting socket io
-    })
-}])
+// app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
+//     return socketFactory({
+//         ioSocket: io.connect('http://localhost:8080')  //connecting socket io
+//     })
+// }])

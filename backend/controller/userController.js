@@ -1,5 +1,6 @@
 var userService = require('../services/userServices');
 var jwt = require('jsonwebtoken')
+var sendMail=require('../middleware/sendMail')
 exports.registration = (req, res) => {
     var responseResult = {};
     userService.registration(req.body, (err, result) => {
@@ -54,8 +55,10 @@ exports.forgotPassword = (req, res) => {
             var url = `localhost:8080/resetPassword =>${token}`;
             // console.log(url);
             // console.log("Snehal")
+            sendMail.sendMail(url);
             res.status(200).send({
-               message:data,
+                
+              // message:data,
                 "token":token,
                 "url": url
                 
