@@ -4,14 +4,14 @@ app.controller('resetController', function ($scope, resetservices) {
     $scope.resetPassword = function () {
         var user = {
             'password': $scope.password,
-            'confirmPassword': $scope.confirmPassword
+            'cpassword': $scope.cpassword
         }
 
         console.log("register calling", user);
-        if ($scope.password != $scope.confirmPassword) {
+        if ($scope.password != $scope.cpassword) {
             $scope.message = "password and confirm password not match.....please try again...";
         } else {
-            resetservices.registerUser(user, $scope);
+            resetservices.resetPassword(user, $scope);
         }
     }
 });

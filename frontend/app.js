@@ -11,27 +11,27 @@ app.config(function($stateProvider, $urlRouterProvider){
     $stateProvider.state('forgotPassword', {
         url: '/forgotPassword',
         templateUrl: 'templates/forgotPass.html',
-        controller: 'controlForgotPassword'
+        controller: 'forgotController'
 
     })
 
     $stateProvider.state('resetPassword', {
         url: '/resetPassword',
         templateUrl: 'templates/resetPass.html',
-        controller: 'controlRestPassword'
+        controller: 'resetController'
 
     })
 
     .state('register',{
         url: '/register',
         templateUrl: 'templates/registration.html',
-        controller: 'controlRegister'
+        controller: 'registerController'
     })
 
     $urlRouterProvider.otherwise('login'); 
 });
-// app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
-//     return socketFactory({
-//         ioSocket: io.connect('http://localhost:8080')  //connecting socket io
-//     })
-// }])
+app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
+    return socketFactory({
+        ioSocket: io.connect('http://localhost:8080')  //connecting socket io
+    })
+}])

@@ -4,23 +4,20 @@
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-    <form name="myForm" ng-controller="loginController">
-        <div class="login-page">
-            <div class="form">
-                <h1>Login</h1>
-                <input type="text" placeholder="Enter Username Or Email" name="email" required>
-                <br /><br />
-                <input type="text" placeholder="Enter Password" name="password" required>
-                <br /><br />
-                <button type="submit" value="logIn" ng-click="login()">Sign in</button>
-                <br /><br />
-                <p><a ui-sref="forgotPassword">Forgot password</a></p>
-                <p class="message">Not registered?
-                    <a ui-sref="register" ui-sref-active="active">Create an account</a>
-                </p>
-                
-            </div>
+    <div class="login-page">
+        <div class="form">
+            <h1>Login</h1>
+            <input type="text" placeholder="Enter Username Or Email" name="email" ng-model="email">
+            <br /><br />
+            <input type="text" placeholder="Enter Password" name="password" ng-model="password">
+            <br /><br />
+            <button type="submit" ng-click="login()">Sign in</button>
+            <br /><br />
+            <p><a ui-sref="forgotPassword">Forgot password</a></p>
+            <p class="message">Not registered?
+                <a ui-sref="register" ui-sref-active="active">Create an account</a>
+            </p>
         </div>
-    </form>
+    </div>
 </body>
 </html>

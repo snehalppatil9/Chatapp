@@ -1,30 +1,20 @@
-app.service('forgotServices', function ($http, $location) {
-
-
+app.service('forgotServices', function ($http) {
     this.forgotPassword = function (data, $scope) {
         $http({
             method: 'POST',
-            url: 'http://localhost:3000/forgotPassword',
+            url: 'http://localhost:8080/forgotPassword',
             data: data,
         }).then(
             function successCallback(response) {
                 console.log("forgotPassword successfull ");
-                var userid = response.data.message[0]._id;
-                var name = response.data.message[0].firstname;
-                var token = response.data.token;
-                localStorage.setItem("userid", userid);
-                localStorage.setItem("name", name);
-                localStorage.setItem("token",token);
-                $location.path('dashboard');
+                console.log(response);
                 $scope.loginMessage = "login successfull";
+              
             },
             function errorCallback(response) {
-
                 console.log("register Unsuccessfull ");
                 console.log(response);
-                $scope.loginMessage = 'EmailId Incorrect ';
-
-
+                $scope.loginMessage = 'Email Id Incorrect ';
             }
         );
     }

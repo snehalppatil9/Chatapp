@@ -1,9 +1,8 @@
-h2 {
-  background-color:blue;
-  font-family: 'Courier New', Courier, monospace;
-  text-align: center;
-  text-shadow: 1px 1px;
+body {
+  background-color: lightblue;
 }
-.background{
-background-color: aqua;
+h1 {
+  color: navy;
+  margin-left: 583px;
+  padding-top: 5px;
 }

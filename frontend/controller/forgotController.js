@@ -7,3 +7,4 @@ app.controller('forgotController', function ($scope, forgotServices) {
         forgotServices.forgotPassword(data, $scope);
     }
 });
+

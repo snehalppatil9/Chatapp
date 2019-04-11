@@ -1,5 +1,8 @@
-app.controller('loginController', function ($scope, loginServices) {
+//console.log("gbrtyrvg56fthyfrgbthyrftgdgy");
 
+app.controller('loginController', function ($scope, loginServices) {
+    //console.log('csk');
+    
     $scope.login = function () {
         var data = {
             'email': $scope.email,
@@ -8,3 +11,5 @@ app.controller('loginController', function ($scope, loginServices) {
         loginServices.login(data, $scope);
     }
 });
+
+//console.log('csk');

@@ -1,6 +1,6 @@
 var userModel = require('../models/userModel');
-exports.registration = (data, callback) => {
-    userModel.registration(data, (err, result) => {
+exports.register = (data, callback) => {
+    userModel.register(data, (err, result) => {
         if (err) {
             console.log("service error");
             callback(err);
