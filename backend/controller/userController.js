@@ -9,13 +9,14 @@ exports.register = (req, res) => {
         req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
         var errors = req.validationErrors();
         var responseResult = {};
+        // any error occurs in validation it goes to if condition
         if (errors) {
-
             responseResult.status = false;
             responseResult.message = errors;
             res.status(422).send(responseResult);
         }
         else {
+            var responseResult = {};
             // here sending a request in services
             userService.register(req.body, (err, result) => {
                 if (err) {

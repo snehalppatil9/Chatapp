@@ -8,7 +8,7 @@ app.service('registerServices', function ($http) {
 
         }).then(
             function successCallback(response) {
-                console.log("MI");    
+                //console.log("MI");    
                 console.log("register successfull ");
                 console.log(response);
                 $scope.message = "register successfull"; 

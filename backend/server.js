@@ -1,12 +1,10 @@
 // FileName: server.js
 // Import express
-
+//express is a web frame for node js
 const express = require('express')
 const app = express();
+// Import http
 const http=require('http');
-// let jwt=require('jsonwebtoken')
-// let async=require('async');
-// let nodemailer=require('nodemailer');
 // Import Body parser
 let bodyParser = require('body-parser');
 // Configure bodyparser to handle post requests
@@ -42,7 +40,6 @@ app.use('/', route);
 app.use(express.static('../frontend'));
 //import database config
 const mdbConfig = require('./config/database.js');
-//app.use(express.static('../frontend'));
 //connection to database
 mongoose.connect(mdbConfig.url, {
   useNewUrlParser: true

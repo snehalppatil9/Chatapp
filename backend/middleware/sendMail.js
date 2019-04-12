@@ -10,9 +10,9 @@ exports.sendMail=(url)=> {
        });
        const mailOptions = {
         from: 'deepupadukone6@gmail.com', // sender address
-        to: 'bhavanab1506@gmail.com', // list of receivers
+        to: 'ilovehitman45sharma@gmail.com',// list of receivers
         subject: 'Subject of your email', // Subject line
-        text: '<p>Your html here</p>'+url// plain text body
+        text: url// plain text body
       };
       transporter.sendMail(mailOptions, function (err, info) {
         if(err)
