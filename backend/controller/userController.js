@@ -11,11 +11,14 @@ exports.register = (req, res) => {
         var responseResult = {};
         // any error occurs in validation it goes to if condition
         if (errors) {
+            console.log("err in controller");
+            
             responseResult.status = false;
             responseResult.message = errors;
             res.status(422).send(responseResult);
         }
         else {
+            console.log("else in controller");
             var responseResult = {};
             // here sending a request in services
             userService.register(req.body, (err, result) => {
@@ -84,12 +87,11 @@ exports.forgotPassword = (req, res) => {
                     const options = { expiresIn: '2d' }
                     var token = jwt.sign((payload), 'secretKey', options);
                     // console.log(token);
-                    var url = `localhost:8080/resetPassword =>${token}`;
+                    var url = `http://localhost:8080/#!resetPassword/${token}`;
                     // console.log(url);
                     // console.log("Snehal")
                     sendMail.sendMail(url);
                     res.status(200).send({
-
                         // message:data,
                         "token": token,
                         "url": url
@@ -105,35 +107,52 @@ exports.forgotPassword = (req, res) => {
 
     }
 }
-exports.resetPassword = (req, res) => {
-    try {
-        req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
-        var errors = req.validationErrors();
-        var responseResult = {};
-        if (errors) {
+// exports.resetPassword = (req, res) => {
+//     try {
+//         req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
+//         var errors = req.validationErrors();
+//         var responseResult = {};
+//         if (errors) {
 
-            responseResult.status = false;
-            responseResult.message = errors;
-            res.status(422).send(responseResult);
+//             responseResult.status = false;
+//             responseResult.message = errors;
+//             res.status(422).send(responseResult);
+//         }
+//         else {
+//             // console.log("control",req);
+//             userService.resetPassword(req.body, (err, data) => {
+//                 if (err) {
+//                     // console.log("dgsdefdes");
+//                     responseResult.status = false;
+//                     responseResult.errors = err;
+//                     return res.status(400).send(responseResult);
+//                 } else {
+//                     responseResult.status = true;
+//                     responseResult.result = data;
+//                     responseResult.message = "reset Passsword sucessfully."
+//                     return res.status(200).send(responseResult);
+//                 }
+//             })
+//         }
+//     } catch (err) {
+//         console.log(err);
+
+//     }
+// }
+
+exports.resetPassword = (req, res) => {
+    var responseResult = {};
+    userService.resetPassword(req, (err, result) => {
+        if (err) {
+            responseResult.success = false;
+            responseResult.error = err;
+            res.status(500).send(responseResult)
         }
         else {
-            // console.log("control",req);
-            userService.resetPassword(req.body, (err, data) => {
-                if (err) {
-                    // console.log("dgsdefdes");
-                    responseResult.status = false;
-                    responseResult.errors = err;
-                    return res.status(400).send(responseResult);
-                } else {
-                    responseResult.status = true;
-                    responseResult.result = data;
-                    responseResult.message = "reset Passsword sucessfully."
-                    return res.status(200).send(responseResult);
-                }
-            })
+            console.log('in user ctrl token is verified giving response');
+            responseResult.success = true;
+            responseResult.result = result;
+            res.status(200).send(responseResult);
         }
-    } catch (err) {
-        console.log(err);
-
-    }
+    })
 }

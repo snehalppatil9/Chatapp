@@ -13,8 +13,8 @@
      vertical-align: middle; 
      box-align: center;
     }
-     h1 {
-      color: wheat;
+    h1 {
+      color: black;
       font-family: 'Courier New', Courier, monospace;
       text-align: center;
       text-shadow: 1px 1px;
@@ -52,6 +52,16 @@
       transition: all 0.3 ease;
       cursor: pointer;
     }
+    p{
+      text-align: left;
+      font-size: 18px;
+      }
+      a {
+        color: black;
+        font-size: 18px;
+      }
+     
+    
   
   
    

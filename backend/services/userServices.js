@@ -31,14 +31,26 @@ exports.forgotPassword = (req, callback) => {
         }
     })
 }
-exports.resetPassword = (req, callback) => {
-    // console.log("reset services",req);
-    userModel.resetPassword(req, (err, result) => {
-        if (err) {
-            return callback(err);
-        } else {
-            console.log("result in controler== ",result)
-            return callback(null, result);
+// exports.resetPassword = (req, callback) => {
+//     // console.log("reset services",req);
+//     userModel.resetPassword(req, (err, result) => {
+//         if (err) {
+//             return callback(err);
+//         } else {
+//             console.log("result in controler== ",result)
+//             return callback(null, result);
+//         }
+//     })
+// }
+
+
+
+exports.resetPassword=(req,callback)=>{
+    userModel.resetPassword(req,(err,result)=>{
+        if(err){
+            callback(err);
+        }else {
+            callback(null,result)
         }
     })
 }

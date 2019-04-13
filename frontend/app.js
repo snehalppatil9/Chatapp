@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider){
     })
 
     $stateProvider.state('resetPassword', {
-        url: '/resetPassword',
+        url: '/resetPassword/:token',
         templateUrl: 'templates/resetPass.html',
         controller: 'resetController'
 
@@ -28,10 +28,16 @@ app.config(function($stateProvider, $urlRouterProvider){
         controller: 'registerController'
     })
 
+    .state('dashboard',{
+        url: '/dashboard',
+        templateUrl: 'templates/dashboard.html',
+    });
+
     $urlRouterProvider.otherwise('login'); 
 });
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
     return socketFactory({
-        ioSocket: io.connect('http://localhost:8080')  //connecting socket io
+        //connecting socket io
+        ioSocket: io.connect('http://localhost:8080')  
     })
 }])

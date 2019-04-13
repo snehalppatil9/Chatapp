@@ -1,6 +1,7 @@
 // api-routes.js
 // Initialize express router
 let router = require('express').Router();
+var auth=require('../backend/middleware/authentication')
 // Set default API response
 // router.get('/', function (req, res) {
 //     res.json({
@@ -18,6 +19,6 @@ router.route('/login')
 router.route('/forgotPassword')
     .post(userController.forgotPassword);
 router.route('/resetPassword')
-    .post(userController.resetPassword);
+    .post(auth.checkToken ,userController.resetPassword);
 // Export API routes
 module.exports = router;

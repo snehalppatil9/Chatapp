@@ -18,6 +18,10 @@ var userSchema = mongoSchema({
         type: String,
         required: [true, "Password is required"]
     }
+    //, cpassword: {
+    //     type: String,
+    //     required: [true, "Password is required"]
+    // }
 });
 var user = mongoose.model('user', userSchema);
 function userModel() { }
@@ -39,6 +43,7 @@ userModel.prototype.register = (body, callback) => {
             callback("Email already Exists")
         }
         else {
+            
             const newUser = new user({
                 "name": body.name,
                 "email": body.email,
@@ -88,18 +93,35 @@ userModel.prototype.forgotPassword = (body, callback) => {
         }
     });
 }
-userModel.prototype.resetPassword = (body, callback) => {
-    var pass = hash(body.password);
-    console.log(pass);
-    user.updateOne({},{ password: pass }, (err, result) => {
-        if (err) {
-           return callback(err);
-        } else {
-             //console.log("update password==",user.password)
-                console.log("Password Reseted Successfully....");
-            callback(null, result);
-            }
-        })
-    }
+// userModel.prototype.resetPassword = (body, callback) => {
+//     var pass = hash(body.password);
+//     console.log(pass);
+//     user.updateOne({},{ password: pass }, (err, result) => {
+//         if (err) {
+//            return callback(err);
+//         } else {
+//              //console.log("update password==",user.password)
+//                 console.log("Password Reseted Successfully....");
+//             callback(null, result);
+//             }
+//         })
+//     }
 
-    module.exports = new userModel();
+
+
+userModel.prototype.updateUserPassword=(req,callback)=> {
+    console.log('in model--data:--',req.decoded);
+    console.log('in model--body:--',req.body);
+
+    let newpassword=hash(req.body.password,saltRounds);
+    console.log(('new pass bcrypt--',newpassword));
+    user.updateOne({ _id:req.decoded.payload.user_id},{password:newpassword},(err,result)=>{
+        if(err) {
+            callback(err);
+        }
+        else {
+            callback(null,result);
+        }  
+    })   
+}
+module.exports = new userModel();
