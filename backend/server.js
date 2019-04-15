@@ -2,11 +2,9 @@
 // Import express
 //express is a web frame for node js
 const express = require('express')
-const SocketIo = require('socket.io')
 const app = express();
 // Import http
 const http = require('http');
-var server = http.createServer(app);
 // Import Body parser
 let bodyParser = require('body-parser');
 // Configure bodyparser to handle post requests
@@ -25,10 +23,10 @@ const route = require('../backend/api-routes');
 // Setup server port
 var port = process.env.PORT || 8080;
 // Launch app to listen to specified port
-app.listen(port, () => {
+var server=app.listen(port, () => {
   console.log("Running RestHub on port " + port);
 });
-const io = SocketIo(server);
+const io = require('socket.io')(server);
 //console.log("aaaaaaaaaaaaa");
 //checking for events. connecton will be listening for incoming sockets.
 io.on('connection', function (socket) {
@@ -40,6 +38,7 @@ io.on('connection', function (socket) {
     console.log("Socket Disconnected!")
   });
 });
+
 //calling router
 app.use('/', route);
 app.use(express.static('../frontend'));

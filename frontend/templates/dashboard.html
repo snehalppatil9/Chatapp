@@ -1,19 +1,24 @@
 <link rel="stylesheet" href="../css//dashboard.css">
+<body ng-controller="chatController">
 <header>
     <h1>ChatApp</h1>
+    <a>welcome to chatapp {{currUserName}}</a>
 </header>
 <div class="left">
     <h2>Contact List</h2>
+    <p ng-repeat="x in allUser" ng-click="chatList(x)" ng-show="currUserName!=x.name">
+        {{x.name}}</p>
     <hr>
     <button class="btn">
-        <a ui-sref="login">Sign Out</a>
+        <a ui-sref="login">SignOut</a>
     </button>
 </div>
 <div class="right">
     <h2>Chat Details</h2>
     <hr>
     <div class="bottom">
-        <textarea name="" id="txt" cols="20" rows="5"></textarea>
-        <button>Submit</button>
+        <textarea name="" id="txt" cols="20" rows="5" placeholder="Message........."></textarea>
+        <button>send</button>
     </div>
 </div>
+</body>

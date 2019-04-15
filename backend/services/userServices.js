@@ -21,6 +21,15 @@ exports.login = (req, callback) => {
         }
     })
 }
+exports.getAllUsers = (req, callback) => {
+    userModel.getAllUsers(req, (err, data) => {
+        if (err) {
+            return callback(err);
+        } else {
+            return callback(null, data);
+        }
+    })
+}
 exports.forgotPassword = (req, callback) => {
     //console.log("forgot service",req);
     userModel.forgotPassword(req, (err, data) => {
@@ -31,26 +40,15 @@ exports.forgotPassword = (req, callback) => {
         }
     })
 }
-// exports.resetPassword = (req, callback) => {
-//     // console.log("reset services",req);
-//     userModel.resetPassword(req, (err, result) => {
-//         if (err) {
-//             return callback(err);
-//         } else {
-//             console.log("result in controler== ",result)
-//             return callback(null, result);
-//         }
-//     })
-// }
-
-
-
-exports.resetPassword=(req,callback)=>{
-    userModel.resetPassword(req,(err,result)=>{
-        if(err){
-            callback(err);
-        }else {
-            callback(null,result)
+exports.resetPassword = (req, callback) => {
+    // console.log("reset services",req);
+    userModel.resetPassword(req, (err, result) => {
+        if (err) {
+            return callback(err);
+        } else {
+            console.log("result in controler== ",result)
+            return callback(null, result);
         }
     })
 }
+

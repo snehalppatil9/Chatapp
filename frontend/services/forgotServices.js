@@ -7,6 +7,7 @@ app.service('forgotServices', function ($http) {
         }).then(
             function successCallback(response) {
                 console.log("forgotPassword successfull ");
+               
                 console.log(response);
                 $scope.loginMessage = "login successfull";
               

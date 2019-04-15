@@ -6,19 +6,18 @@ exports.register = (req, res) => {
         //check vadiation of data
         req.checkBody('name', 'Name is not valid').isLength({ min: 3 }).isAlpha();
         req.checkBody('email', 'Email is not valid').isEmail();
-        req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
+        req.checkBody('password', 'Password is not valid').isLength({ min: 8 });
         var errors = req.validationErrors();
         var responseResult = {};
         // any error occurs in validation it goes to if condition
         if (errors) {
             console.log("err in controller");
-            
             responseResult.status = false;
             responseResult.message = errors;
             res.status(422).send(responseResult);
         }
         else {
-            console.log("else in controller");
+            // console.log("else in controller");
             var responseResult = {};
             // here sending a request in services
             userService.register(req.body, (err, result) => {
@@ -57,6 +56,20 @@ exports.login = (req, res) => {
         }
     })
 }
+exports.getAllUsers = (req,res) => {
+    userService.getAllUsers(req, (err, data) => {
+        var response = {};
+        if (err) {
+            return callback(err);
+        } else {
+            //console.log("datbase user data==>",data);
+            response.success = true;
+            response.result = data;
+            res.status(200).send(response);
+        
+        }
+    })
+}
 exports.forgotPassword = (req, res) => {
     try {
         req.checkBody('email', 'Email is not valid').isEmail();
@@ -84,10 +97,10 @@ exports.forgotPassword = (req, res) => {
                     }
                     //console.log("Payload", payload);
                     //console.log("hahahahhahahahahahahahahahahahahahahaha")
-                    const options = { expiresIn: '2d' }
+                    const options = { expiresIn: '2hr' }
                     var token = jwt.sign((payload), 'secretKey', options);
                     // console.log(token);
-                    var url = `http://localhost:8080/#!resetPassword/${token}`;
+                    var url = `http://localhost:8080/#!/resetPassword/${token}`;
                     // console.log(url);
                     // console.log("Snehal")
                     sendMail.sendMail(url);
@@ -107,52 +120,36 @@ exports.forgotPassword = (req, res) => {
 
     }
 }
-// exports.resetPassword = (req, res) => {
-//     try {
-//         req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
-//         var errors = req.validationErrors();
-//         var responseResult = {};
-//         if (errors) {
-
-//             responseResult.status = false;
-//             responseResult.message = errors;
-//             res.status(422).send(responseResult);
-//         }
-//         else {
-//             // console.log("control",req);
-//             userService.resetPassword(req.body, (err, data) => {
-//                 if (err) {
-//                     // console.log("dgsdefdes");
-//                     responseResult.status = false;
-//                     responseResult.errors = err;
-//                     return res.status(400).send(responseResult);
-//                 } else {
-//                     responseResult.status = true;
-//                     responseResult.result = data;
-//                     responseResult.message = "reset Passsword sucessfully."
-//                     return res.status(200).send(responseResult);
-//                 }
-//             })
-//         }
-//     } catch (err) {
-//         console.log(err);
-
-//     }
-// }
-
 exports.resetPassword = (req, res) => {
-    var responseResult = {};
-    userService.resetPassword(req, (err, result) => {
-        if (err) {
-            responseResult.success = false;
-            responseResult.error = err;
-            res.status(500).send(responseResult)
+    try {
+        req.checkBody('password', 'Password is not valid').isLength({ min: 8 });
+        var errors = req.validationErrors();
+        var responseResult = {};
+        if (errors) {
+
+            responseResult.status = false;
+            responseResult.message = errors;
+            res.status(422).send(responseResult);
         }
         else {
-            console.log('in user ctrl token is verified giving response');
-            responseResult.success = true;
-            responseResult.result = result;
-            res.status(200).send(responseResult);
+            // console.log("control",req);
+            userService.resetPassword(req.body, (err, data) => {
+                if (err) {
+                    // console.log("dgsdefdes");
+                    responseResult.status = false;
+                    responseResult.errors = err;
+                    return res.status(400).send(responseResult);
+                } else {
+                    responseResult.status = true;
+                    responseResult.result = data;
+                    responseResult.message = "reset Passsword sucessfully."
+                    return res.status(200).send(responseResult);
+                }
+            })
         }
-    })
+    } catch (err) {
+        console.log(err);
+
+    }
 }
+

@@ -15,17 +15,17 @@ header {
   padding: 1px;
   text-align: center;
   font-size: 25px;
-  color: white;
-  border: groove;
+  color:white;
+  border: ridge;
+
 }
 .left {
   background-color:lightgrey;
   float: left;
   padding: 20px;
   width: 30%;
-  height: 550px; 
+  height: 650px; 
   color: black;
-  overflow: scroll;
   border: 1px  groove;
 }
 .right {
@@ -33,9 +33,8 @@ header {
   float: left;
   padding: 20px;
   width: 70%;
-  height: 550px;
+  height: 650px;
   color: black;
-  overflow: scroll;
   border: 1px  groove;
 }
 div{
@@ -43,9 +42,12 @@ div{
   position:relative;
 }
 textarea{
+  position: relative;
+  margin-top: 55px;
   display:block;
-  border: 3px groove;
-  width: 830px;
+  border: groove;
+  width: 1050px;
+  height: 50px;
 }
 .bottom{
   margin-top: 340px;
@@ -70,6 +72,7 @@ padding: 10px;
 font-size: 15px;
 border: groove 2px;
 border-radius: 4px;
+box-shadow: 1px;
 color:white;
 background-color:purple;
 }
