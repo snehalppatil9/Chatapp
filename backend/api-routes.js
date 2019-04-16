@@ -1,6 +1,6 @@
 // api-routes.js
 // Initialize express router
-let router = require('express').Router();
+
 // Set default API response
 // router.get('/', function (req, res) {
 //     res.json({
@@ -9,13 +9,15 @@ let router = require('express').Router();
 //     });
 // });
 // Import contact controller
-var userController = require('../backend/controller/userController');
-
+const userController = require('../backend/controller/userController');
+const authroutes= require('../backend/authorization')
+const router = require('express').Router();
 // Contact routes
 router.route('/register')
     .post(userController.register);
 router.route('/login')
     .post(userController.login);
+router.use('/auth',authroutes);
 router.route('/getAllUsers')
     .post(userController.getAllUsers)
 router.route('/forgotPassword')

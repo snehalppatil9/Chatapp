@@ -1,78 +1,50 @@
-* {
-  box-sizing: border-box;
+.container
+{
+    max-width:100%;
+    margin:auto;
+    background-color:purple;
+    padding: 1px;
+    text-align: center;
+    font-size: 25px;
+    color:white;
+    border: ridge; 
 }
-h2{
-  text-align: center;
-}
-hr{ 
-  height: 1px;
-  color: black;
-  background-color: black;
-  border: none;
-}
-header {
-  background-color:purple;
-  padding: 1px;
-  text-align: center;
-  font-size: 25px;
-  color:white;
-  border: ridge;
-
+.recent_heading {
+    float: left; 
+    width:30%;
 }
 .left {
   background-color:lightgrey;
   float: left;
   padding: 20px;
   width: 30%;
-  height: 650px; 
+  height: 620px; 
   color: black;
   border: 1px  groove;
 }
 .right {
   background-color:lightgrey;
-  float: left;
+  float: right;
   padding: 20px;
-  width: 70%;
-  height: 650px;
+  width: 63%;
+  height: 620px;
   color: black;
   border: 1px  groove;
 }
-div{
-  display:inline-block;
-  position:relative;
+.headind_srch{ 
+    padding:10px 29px 10px 20px; 
+    overflow:hidden; 
+    border-bottom:2px solid black;
 }
-textarea{
-  position: relative;
-  margin-top: 55px;
-  display:block;
-  border: groove;
-  width: 1050px;
-  height: 50px;
-}
-.bottom{
-  margin-top: 340px;
-}
-.btn{
- border: groove 2px;
- margin: 10px; 
- padding: 10px;
-}
-.btn a{
- text-decoration: none;
- font-family: 'Courier New', Courier, monospace;
- color: white; 
- font-size: 15px;
-}
-button{
-font-family: 'Courier New', Courier, monospace;
-position:absolute;
-bottom:10px;
-right:10px;
-padding: 10px;
-font-size: 15px;
-border: groove 2px;
-border-radius: 4px;
-box-shadow: 1px;
-color:white;
-background-color:purple;
+.recent_heading h3 {
+    color: #05728f;
+    font-size: 21px;
+    margin: auto;
+  }
+.srch_bar input{
+    border:1px solid #cdcdcd; 
+    border-width:1px; 
+    width:70%; 
+    padding:2px 0 4px 3px; 
+    background:none;
 }

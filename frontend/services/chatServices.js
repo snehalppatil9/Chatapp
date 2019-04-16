@@ -1,16 +1,17 @@
 app.service('chatServices', function ($http) {
     try {
-        this.getAllUSers = function ($scope) {
+        this.getAllUsers = function ($scope,usertoken) {
             $http({
                 method: 'GET',//assigning value to http proprties 
-                url: 'http://localhost:8080/getAllUsers',
+                url: 'http://localhost:8080/auth/getAllUsers',
+                headers: {
+                    'token': usertoken,
+                }
                 }).then(
                 function successCallback(response) {//call back function of http sevice
                     $scope.allUser = response.data.result;
                     // console.log('assdfjhjsdfjkkj');
-                    
                     console.log(response.data.result);
-                    
                 },
                 function errorCallback(response) {
                     console.log("register Unsuccessfull ");
@@ -23,3 +24,7 @@ app.service('chatServices', function ($http) {
         console.log("error found here in getting users")
     }
 })
+
+
+
+

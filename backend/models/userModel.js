@@ -59,24 +59,25 @@ userModel.prototype.register = (body, callback) => {
     });
 }
 userModel.prototype.login = (body, callback) => {
-    user.findOne(
-        {
-            "email": body.email
-        }, (err, data) => {
-            if (err) {
-                callback(err);
-            } else if (data != null) {
-                bcrypt.compare(body.password, data.password).then(function (res) {
-                    if (res) {
-                        console.log("Login sucessfully.......");
-                        callback(null);
-                    }
-                    else {
-                        console.log("Incorrect password");
-                    }
-                });
-            }
-        });
+    user.find({ "email": body.email }, (err, data) => {
+        if (err) {
+            return callback(err);
+        } else if (data.length > 0) {
+            bcrypt.compare(body.password, data[0].password, function (err, res) {
+                if (err) {
+                    return callback(err);
+                } else if (res) {
+                    console.log(data);
+
+                    return callback(null, data);
+                } else {
+                    return callback("Incorrect password").status(500);
+                }
+            });
+        } else {
+            return callback("Invalid User ");
+        }
+    });
 }
 userModel.prototype.getAllUsers = (req,callback) => {
     user.find({}, (err, data)=>{

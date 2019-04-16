@@ -40,32 +40,45 @@ exports.register = (req, res) => {
 
     }
 }
-exports.login = (req, res) => {
+module.exports.login = (req, res) => {
+    console.log("req in controller", req.body);
+
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'password is not valid').isLength({ min: 4 });
+    var secret = "adcgfft";
+    var errors = req.validationErrors();
     var responseResult = {};
-    userService.login(req.body, (err, result) => {
-        if (err) {
-            responseResult.success = false;
-            responseResult.error = err;
-            res.status(500).send(responseResult);
-        }
-        else {
-            responseResult.success = true;
-            responseResult.result = result;
-            responseResult.message = "Login Sucessufully"
-            res.status(200).send(responseResult);
-        }
-    })
-}
+    if (errors) {
+        responseResult.success = false;
+        responseResult.error = errors;
+        return res.status(422).send(responseResult);
+    } else {
+        userService.login(req.body, (err, data) => {
+            if (err) {
+                return res.status(500).send({
+                    message: err
+                });
+            } else {
+                var token = jwt.sign({ email: req.body.email, id: data[0]._id }, secret, { expiresIn: 86400000 });
+                return res.status(200).send({
+                    message: data,
+                    "token": token
+                });
+            }
+        })
+    }
+
+};
 exports.getAllUsers = (req,res) => {
     userService.getAllUsers(req, (err, data) => {
-        var response = {};
+        var responseResult = {};
         if (err) {
             return callback(err);
         } else {
             //console.log("datbase user data==>",data);
-            response.success = true;
-            response.result = data;
-            res.status(200).send(response);
+            responseResult.success = true;
+            responseResult.result = data;
+            res.status(200).send(responseResult);
         
         }
     })
@@ -122,7 +135,7 @@ exports.forgotPassword = (req, res) => {
 }
 exports.resetPassword = (req, res) => {
     try {
-        req.checkBody('password', 'Password is not valid').isLength({ min: 8 });
+        req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(body.cpassword);
         var errors = req.validationErrors();
         var responseResult = {};
         if (errors) {

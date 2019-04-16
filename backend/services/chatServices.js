@@ -3,7 +3,7 @@ app.service('chatServices', function ($http) {
         this.getAllUsers = function ($scope) {
             $http({
                 method: 'GET',//assigning value to http proprties 
-                url: 'http://localhost:8080/getAllUsers',
+                url: 'http://localhost:8080/auth/getAllUsers',
                 // headers: {
                 //     'token': usertoken,
                 // }
