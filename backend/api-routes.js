@@ -11,6 +11,7 @@
 // Import contact controller
 const userController = require('../backend/controller/userController');
 const authroutes= require('../backend/authorization')
+const chatController=require('../backend/controller/chatController')
 const router = require('express').Router();
 // Contact routes
 router.route('/register')
@@ -24,5 +25,7 @@ router.route('/forgotPassword')
     .post(userController.forgotPassword);
 router.route('/resetPassword')
     .post(userController.resetPassword);
+router.get('/getUserMsg', chatController.getUserMsg);
+
 // Export API routes
 module.exports = router;

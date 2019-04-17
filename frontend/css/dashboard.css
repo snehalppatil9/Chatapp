@@ -1,3 +1,10 @@
+.body {
+  padding: 100px;
+  font-family: "elephant";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  position: relative;     
+}
 .container
 {
     max-width:100%;
@@ -16,9 +23,9 @@
 .left {
   background-color:lightgrey;
   float: left;
-  padding: 20px;
-  width: 30%;
-  height: 620px; 
+  padding: 10px;
+  width: 25%;
+  height: 70%; 
   color: black;
   border: 1px  groove;
 }
@@ -26,19 +33,19 @@
   background-color:lightgrey;
   float: right;
   padding: 20px;
-  width: 63%;
-  height: 620px;
+  width: 70%;
+  height: 70%;
   color: black;
   border: 1px  groove;
 }
 .headind_srch{ 
-    padding:10px 29px 10px 20px; 
+    padding:20px; 
     overflow:hidden; 
     border-bottom:2px solid black;
 }
 .recent_heading h3 {
     color: #05728f;
-    font-size: 21px;
+    font-size: 20px;
     margin: auto;
   }
 .srch_bar input{
@@ -48,3 +55,53 @@
     padding:2px 0 4px 3px; 
     background:none;
 }
+.gropChat{
+	float:right;
+	width: 70%;
+	height: 100%;  
+	margin: 0px 0px 0px;
+}
+.username{
+	margin:0px 10px 0px 0px;
+	color:rgb(238, 52, 167);
+	font-family: 'Times New Roman';
+	font-weight: bold;
+	font-style: italic
+}
+.msgsend button{
+  font-family: 'Courier New', Courier, monospace;
+  bottom:30px;
+  right:35px;
+  padding: 10px;
+  font-size: 15px;
+  border: groove 2px;
+  border-radius: 4px;
+  box-shadow: 1px;
+  color:white;
+  background-color:purple;
+  }
+  .msgsend textarea{
+    margin-top: 565px;
+    display:block;
+    border: 3px groove;
+    width: 900px;
+  }
+  .chat .chatMsg{
+    width: 100%;
+    padding: 10px;
+    margin: 0px, 0px, 0px;
+    border-radius: 05%; 
+}
+.friend .chatMsg{
+    background-color: rgb(236, 156, 37);
+    color: #fff;
+    text-align: left;   
+}
+
+
+
+
+
+
+
+

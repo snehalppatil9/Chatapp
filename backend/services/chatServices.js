@@ -1,25 +1,24 @@
-app.service('chatServices', function ($http) {
-    try {
-        this.getAllUsers = function ($scope) {
-            $http({
-                method: 'GET',//assigning value to http proprties 
-                url: 'http://localhost:8080/auth/getAllUsers',
-                // headers: {
-                //     'token': usertoken,
-                // }
-            }).then(
-                function successCallback(response) {//call back function of http sevice
-                    $scope.allUser = response.data.result;
-                    console.log(response.data.result);     
-                },
-                function errorCallback(response) {
-                    console.log("register Unsuccessfull ");
-                    console.log(response);
-                }
-            );
+const chatModel = require('../models/chatModel');
+exports.addMessage = (req, callback) => {
+    console.log("req on service");
+    chatModel.addMessage(req, (err, data) => {
+        if (err) {
+            console.log("err on service file", err);
+            callback(err)
+        } else {
+            console.log("data on service file", data);
+            callback(null, data)
         }
-    }
-    catch (err) {
-        console.log("error found here in getting users")
-    }
-})
+    })
+}
+exports.getUserMsg = (req, callback) => {
+    chatModel.getUserMsg(req, (err, data) => {
+        if (err) {
+            console.log("chat services is not working");
+            callback(err);
+        } else {
+            console.log("chat service is working fine")
+            callback(null, data);
+        }
+    })
+}

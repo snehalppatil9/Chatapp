@@ -21,15 +21,16 @@ try {
     module.exports.getUserMsg = (req, res) => {
         console.log("Entered control");
         chatServices.getUserMsg(req, (err, data) => {
-            var responce = {};
+            var responseResult = {};
             if (err) {
-                data.responce = false;
-                data.responce = err;
-                res.status(500).send(responce)
+                responseResult.success = false;
+                responseResult.data = err;
+                res.status(500).send(responseResult)
+                return callback(err);
             } else {
-                data.responce = true;
-                data.responce = data;
-                res.status(200).send(responce)
+                responseResult.success = true;
+               responseResult.data = data;
+                res.status(200).send(responseResult)
             }
         })
     }
