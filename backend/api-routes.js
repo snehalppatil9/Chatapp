@@ -9,9 +9,10 @@
 //     });
 // });
 // Import contact controller
+const loginMiddleware=require('../backend/middleware/authentication')
 const userController = require('../backend/controller/userController');
 const authroutes= require('../backend/authorization')
-const chatController=require('../backend/controller/chatController')
+//const chatController=require('../backend/controller/chatController')
 const router = require('express').Router();
 // Contact routes
 router.route('/register')
@@ -19,13 +20,12 @@ router.route('/register')
 router.route('/login')
     .post(userController.login);
 router.use('/auth',authroutes);
-router.route('/getAllUsers')
-    .post(userController.getAllUsers)
+// router.route('/getAllUsers')
+//     .post(userController.getAllUsers)
 router.route('/forgotPassword')
     .post(userController.forgotPassword);
-router.route('/resetPassword')
-    .post(userController.resetPassword);
-router.get('/getUserMsg', chatController.getUserMsg);
+router.post('/resetpassword/:token',loginMiddleware.checkToken,userController.resetPassword); 
+//router.get('/getUserMsg', chatController.getUserMsg);
 
 // Export API routes
 module.exports = router;

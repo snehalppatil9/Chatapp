@@ -33,6 +33,6 @@ app.config(function($stateProvider, $urlRouterProvider){
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
     return socketFactory({
         //connecting socket io
-        ioSocket: io.connect('http://localhost:8080')  
+        ioSocket: io.connect('http://192.168.0.224:8080')  
     })
 }])

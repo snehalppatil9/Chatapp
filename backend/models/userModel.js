@@ -88,29 +88,35 @@ userModel.prototype.getAllUsers = (req,callback) => {
        }
     })
 } 
-userModel.prototype.forgotPassword = (body, callback) => {
-    user.findOne({ "email": body.email }, (err, data) => {
-        if (err) {
-            return callback(err);
-        } else if (data) {
-            return callback(null, data);
+userModel.prototype.forgotPassword=(data,callback)=>{
+    user.findOne({"email":data.email},(err,result)=>{
+        if(err) {
+            callback(err);
         }
         else {
-            return callback("Incorrect email");
-        }
-    });
-}
-userModel.prototype.resetPassword = (body, callback) => {
-    var pass = hash(body.password);
-    console.log(pass);
-    user.updateOne({},{ password: pass }, (err, result) => {
-        if (err) {
-           return callback(err);
-        } else {
-             //console.log("update password==",user.password)
-                console.log("Password Reseted Successfully....");
-            callback(null, result);
+            if(result!==null && data.email==result.email) {
+                callback(null,result);
             }
-        })
-    }
+            else {
+                callback("inncorrect mail")
+            }
+        }
+    })
+}
+userModel.prototype.updateUserPassword=(req,callback)=> {
+    console.log('in model--data:--',req.decoded);
+    console.log('in model--body:--',req.body);
+
+    let newpassword=bcrypt.hashSync(req.body.password,saltRounds);
+    console.log(('new pass bcrypt--',newpassword));
+    user.updateOne({ _id:req.decoded.payload.user_id},{password:newpassword},(err,result)=>{
+        if(err) {
+            callback(err);
+        }
+        else {
+            callback(null,result);
+        }  
+    })   
+}
+    
 module.exports = new userModel();

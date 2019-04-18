@@ -1,23 +1,33 @@
 const chatModel = require('../models/chatModel');
+
 exports.addMessage = (req, callback) => {
-    console.log("req on service");
+
+    console.log("request in service");
+
     chatModel.addMessage(req, (err, data) => {
+
         if (err) {
-            console.log("err on service file", err);
+            console.log("ERROR: in service", err);
             callback(err)
         } else {
-            console.log("data on service file", data);
+
+            console.log("data in service", data);
             callback(null, data)
         }
+
     })
+
 }
 exports.getUserMsg = (req, callback) => {
+    
     chatModel.getUserMsg(req, (err, data) => {
+        console.log("===>",req.body);
+        
         if (err) {
-            console.log("chat services is not working");
+            console.log("chat services isn't working");
             callback(err);
         } else {
-            console.log("chat service is working fine")
+            console.log("chat service works")
             callback(null, data);
         }
     })
