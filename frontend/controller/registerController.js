@@ -9,13 +9,13 @@ app.controller('registerController', function ($scope, registerServices ) {
         }
         //validation for name
         if($scope.name==""){
-            alert('Name must be filled out');
+            alert('Name must be filled out')
             return false;
         }
         //validation for email
         var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         if (reg.test($scope.email) == false) {
-                alert('Invalid Email Address');
+            alert('Invalid Email Address')
                 return (false);
         }
         //validation for password
@@ -33,7 +33,7 @@ app.controller('registerController', function ($scope, registerServices ) {
         //console.log("register calling", user);
         //it checks password and confirm password matching or not
         if ($scope.password != $scope.cpassword) {
-           alert("password and confirm password not match.....please try again...");
+            alert("password and confirm password not match.....please try again...")
            
         } else {
             registerServices.register(user, $scope);

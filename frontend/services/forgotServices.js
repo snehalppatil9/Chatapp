@@ -4,6 +4,9 @@ app.service('forgotServices', function ($http) {
             method: 'POST',
             url: 'http://localhost:8080/forgotPassword',
             data: data,
+            headers:{
+                token:$scope.token
+            }
         }).then(
             function successCallback(response) {
                 console.log("forgotPassword successfull ");

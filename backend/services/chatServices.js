@@ -21,13 +21,13 @@ exports.addMessage = (req, callback) => {
 exports.getUserMsg = (req, callback) => {
     
     chatModel.getUserMsg(req, (err, data) => {
-        console.log("===>",req.body);
+        //console.log("===>",req.body);
         
         if (err) {
             console.log("chat services isn't working");
             callback(err);
         } else {
-            console.log("chat service works")
+            //console.log("chat service works",data)
             callback(null, data);
         }
     })

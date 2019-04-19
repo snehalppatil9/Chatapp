@@ -65,14 +65,15 @@ catch (err) {
 }
 try {
     chatModel.prototype.getUserMsg = (req ,callback) => {
-        console.log("==============",req);
+        //console.log("==============>",req);
         
         chat.find({}, (err, data) => {
             if (err) {
                 callback(err)
             } else {
-                callback(null, data);
                 console.log("ERROR: DATA not found!",data)
+                callback(null, data);
+                
             }
 
         })

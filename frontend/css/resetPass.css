@@ -38,31 +38,31 @@
       padding: 18px;
       font-size: 15px;
     }
-    .form button {
-      font-family:fantasy;
-      background: silver;
-      border-radius: 15px;
-      background-color:whitesmoke;
-      width: 50%;
-      border: 0;
-      padding: 18px;
-      color:black;
-      font-size: 19px;
-      -webkit-transition: all 0.3 ease;
-      transition: all 0.3 ease;
-      cursor: pointer;
-    }
-    p{
-      text-align: left;
-      font-size: 18px;
-      }
-      a {
-        color: black;
-        font-size: 18px;
-      }
-     
-    
-  
-  
-   
+.form button {
+  font-family:fantasy;
+  background: silver;
+  border-radius: 15px;
+  background-color:whitesmoke;
+  width: 50%;
+  border: 0;
+  padding: 18px;
+  color:black;
+  font-size: 19px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+p{
+  text-align: left;
+  font-size: 18px;
+}
+a {
+  color: black;
+  font-size: 18px;
+}
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
   

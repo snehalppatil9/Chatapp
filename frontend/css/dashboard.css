@@ -1,21 +1,66 @@
-.body {
-  padding: 100px;
-  font-family: "elephant";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; 
-  position: relative;     
+* {
+  box-sizing: border-box;
 }
-.container
-{
-    max-width:100%;
-    margin:auto;
-    background-color:purple;
-    padding: 1px;
-    text-align: center;
-    font-size: 25px;
-    color:white;
-    border: ridge; 
+.header {
+  background-color:purple;
+  padding: 1px;
+  text-align: center;
+  font-size: 25px;
+  color:white;
+  border: ridge;
+
 }
+.bottom{
+  margin-top: 340px;
+}
+textarea{
+  position: relative;
+  /* margin-top: 55px; */
+  font-family: 'Courier New', Courier, monospace;
+  position:absolute;
+  bottom:30px;
+  display:block;
+  border: groove;
+  width:850px;
+  height: 50px;
+}
+ .btn a{
+   position: relative;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  color: white; 
+  font-size: 15px;
+  padding: 10px;
+ font-size: 15px;
+ }
+ .btn{
+position: relative;
+ font-family: 'Courier New', Courier, monospace;
+ position:absolute;
+ bottom:30px;
+ /* right:10px; */
+ padding: 10px;
+ font-size: 15px;
+ border: groove 2px;
+ border-radius: 4px;
+ box-shadow: 1px;
+ color:white;
+ background-color:purple;
+ }
+ .btn1{
+  position: relative;
+   font-family: 'Courier New', Courier, monospace;
+   position:absolute;
+   bottom:40px;
+   right:30px;
+   padding: 10px;
+   font-size: 15px;
+   border: groove 2px;
+   border-radius: 4px;
+   box-shadow: 1px;
+   color:white;
+   background-color:purple;
+   }
 .recent_heading {
     float: left; 
     width:30%;
@@ -23,18 +68,19 @@
 .left {
   background-color:lightgrey;
   float: left;
-  padding: 10px;
-  width: 25%;
-  height: 70%; 
+  padding: 20px;
+  width: 30%;
+  height: 650px; 
   color: black;
   border: 1px  groove;
 }
+
 .right {
   background-color:lightgrey;
-  float: right;
+  float: left;
   padding: 20px;
   width: 70%;
-  height: 70%;
+  height: 650px;
   color: black;
   border: 1px  groove;
 }
@@ -68,24 +114,6 @@
 	font-weight: bold;
 	font-style: italic
 }
-.msgsend button{
-  font-family: 'Courier New', Courier, monospace;
-  bottom:30px;
-  right:35px;
-  padding: 10px;
-  font-size: 15px;
-  border: groove 2px;
-  border-radius: 4px;
-  box-shadow: 1px;
-  color:white;
-  background-color:purple;
-  }
-  .msgsend textarea{
-    margin-top: 565px;
-    display:block;
-    border: 3px groove;
-    width: 900px;
-  }
 .chat .chatMsg{
     width: 100%;
     padding: 10px;

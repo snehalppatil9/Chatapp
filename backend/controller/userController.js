@@ -1,5 +1,4 @@
 var userService = require('../services/userServices');
-var jwt = require('jsonwebtoken')
 var sendMail = require('../middleware/sendMail')
 var util=require('../middleware/token')
 exports.register = (req, res) => {
@@ -105,7 +104,6 @@ exports.forgotPassword = (req, res) => {
             console.log(payload);
             const obj = util.GenerateToken(payload);
             console.log("controller obj", obj);
-
             const url = `http://localhost:8080/#!/resetPassword/${obj.token}`;
             sendMail.sendMail(url);
             //Send email using this token generated
@@ -113,10 +111,6 @@ exports.forgotPassword = (req, res) => {
         }
     })
 }
-
-
-
-
 exports.resetPassword = (req, res) => {
     var responseResult = {};
     userService.resetPass(req, (err, result) => {

@@ -5,16 +5,17 @@ app.service('registerServices', function ($http) {
             method: 'POST',
             url: 'http://localhost:8080/register',
             data: data
-
-        }).then(
+         }).then(
             function successCallback(response) {
                 //console.log("MI");    
-                console.log("register successfull ");
+                alert("new user registered successfully")
+                //console.log("register successfull ");
                 console.log(response);
-                $scope.message = "register successfull"; 
+                //$scope.message = "register successfull"; 
             },
             function errorCallback(response) {
-             console.log("register Unsuccessfull ");
+             alert("register Unsuccessfully")
+            // console.log("register Unsuccessfull ");
              $scope.message =response.data.message.message;
 
 

@@ -1,5 +1,6 @@
 var app = angular.module('chatApp',['ui.router','btford.socket-io']);
 app.config(function($stateProvider, $urlRouterProvider){
+     
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: 'templates/loginPage.html',
@@ -18,21 +19,22 @@ app.config(function($stateProvider, $urlRouterProvider){
         controller: 'resetController'
 
     })
-    .state('register',{
+    $stateProvider.state('register',{
         url: '/register',
         templateUrl: 'templates/registration.html',
         controller: 'registerController'
     })
-    .state('dashboard',{
+    $stateProvider.state('dashboard',{
         url: '/dashboard',
         templateUrl: 'templates/dashboard.html',
         controller: 'chatController'
     });
     $urlRouterProvider.otherwise('login'); 
 });
+
 app.service('SocketService', ['socketFactory', function SocketService(socketFactory){
     return socketFactory({
         //connecting socket io
-        ioSocket: io.connect('http://192.168.0.224:8080')  
+        ioSocket: io.connect('http://localhost:8080')  
     })
 }])

@@ -10,9 +10,9 @@ app.service('chatServices', function ($http) {
             }).then(
                 function successCallback(response) {//call back function of http sevice
 
-                    // console.log("responsesqdvdhujc7fik18728=>",response)
+                    console.log("responsesqdvdhujc7fik18728=>",response.data.result)
                     $scope.allUser = response.data.result;
-                    console.log("sdssssssssssssssss", response.data.result);
+                    console.log( response.data.result);
 
                 },
                 function errorCallback(response) {
@@ -37,9 +37,10 @@ app.service('chatServices', function ($http) {
                 }
             }).then(
                 function successCallback(response) {
-                    console.log(response.data.message);
-                    for (let i = 0; i < (response.data.message); i++) {
-                        a = response.data.message[i];
+                    //console.log("hhheueoehebfwjkbhfjkejkewjk++++++++++++++",response.data.result);
+
+                    for (let i = 0; i < (response.data.result.length); i++) {
+                        a = response.data.result[i];
 
                         if (((localStorage.getItem('userid') == a.senderUserId) && (localStorage.getItem('ruserId') == a.receiverUserId)) || ((localStorage.getItem('userid') == a.receiverUserId && localStorage.getItem('ruserId') == a.senderUserId))) {
                             console.log("local user is ", localStorage.getItem('userid'), "a user is ", a.senderUserId, " local receiver id is ", localStorage.getItem('ruserId'), "  receiver is ", a.receiverUserId);

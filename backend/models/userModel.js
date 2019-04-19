@@ -7,11 +7,11 @@ var mongoSchema = mongoose.Schema;
 var userSchema = mongoSchema({
     name: {
         type: String,
-        unique: true,
         required: [true, "Name is required"]
     },
     email: {
         type: String,
+        unique: true,
         required: [true, "Email is required"]
     },
     password: {
@@ -34,10 +34,6 @@ userModel.prototype.register = (body, callback) => {
         if (err) {
             console.log("Error in Registration");
             callback("User Already Present")
-        }
-        else if (data.length > 0) {
-            console.log("Email already Exists.");
-            callback("Email already Exists")
         }
         else {
             

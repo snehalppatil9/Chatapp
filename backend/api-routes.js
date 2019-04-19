@@ -24,7 +24,7 @@ router.use('/auth',authroutes);
 //     .post(userController.getAllUsers)
 router.route('/forgotPassword')
     .post(userController.forgotPassword);
-router.post('/resetpassword/:token',loginMiddleware.checkToken,userController.resetPassword); 
+router.post('/resetpassword',loginMiddleware.checkToken,userController.resetPassword); 
 //router.get('/getUserMsg', chatController.getUserMsg);
 
 // Export API routes
