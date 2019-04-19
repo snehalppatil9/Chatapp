@@ -6,7 +6,7 @@ exports.register = (req, res) => {
         //check validation of data
         req.checkBody('name', 'Name is not valid').isLength({ min: 3 }).isAlpha();
         req.checkBody('email', 'Email is not valid').isEmail();
-        req.checkBody('password', 'Password is not valid').isLength({ min: 8 });
+        req.checkBody('password', 'Password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
         var errors = req.validationErrors();
         var responseResult = {};
         // any error occurs in validation it goes to if condition
