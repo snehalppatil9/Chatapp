@@ -1,13 +1,11 @@
 app.controller('chatController', function ($scope, SocketService, $state, chatServices) {
-   
-    
     $scope.message = '';
     $scope.allUserArr = [];
     //assign the data from localstorage
     $scope.currentUserName = localStorage.getItem('name');
     $scope.currentUser = localStorage.getItem('userid');
     $scope.receiverUserName = localStorage.getItem('rusername');
-    var token = localStorage.getItem("token");
+    vr token = localStorage.getItem("token");
     console.log(token.exp);
  
     
