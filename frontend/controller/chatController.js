@@ -7,11 +7,6 @@ app.controller('chatController', function ($scope, SocketService, $state, chatSe
     $scope.receiverUserName = localStorage.getItem('rusername');
     vr token = localStorage.getItem("token");
     console.log(token.exp);
- 
-    
-    if (token === null) {     //if the token is null then redirects to login page
-        $state.go('login');
-    }
     try {
         SocketService.on('newMessageSingle', (message) => {
             if (localStorage.getItem('userid') == message.senderUserId || (localStorage.getItem('userid') == message.receiverUserId && localStorage.getItem('ruserId') == message.senderUserId)) {
