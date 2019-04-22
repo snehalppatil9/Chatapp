@@ -5,7 +5,7 @@ app.controller('chatController', function ($scope, SocketService, $state, chatSe
     $scope.currentUserName = localStorage.getItem('name');
     $scope.currentUser = localStorage.getItem('userid');
     $scope.receiverUserName = localStorage.getItem('rusername');
-    vr token = localStorage.getItem("token");
+    var token = localStorage.getItem("token");
     console.log(token.exp);
     try {
         SocketService.on('newMessageSingle', (message) => {
